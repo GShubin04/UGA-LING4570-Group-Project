@@ -1,4 +1,4 @@
-# LING 4570 — Group -1's Project
+# LING 4570 — Group -1
 
 Analysis of EU political speech using the EUSpeech dataset.
 
