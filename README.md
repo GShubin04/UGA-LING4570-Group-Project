@@ -1,12 +1,12 @@
 # LING 4570 — Group -1's Project
 
-Computational analysis of EU political speech using the EUSpeech dataset.
+Analysis of EU political speech using the EUSpeech dataset.
 
 ## Dataset
 
-**EUSpeech** — [Harvard Dataverse (DOI: 10.7910/DVN/XPCVEI)](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/XPCVEI)
+**About:** 18,403 speeches from EU leaders collected from 2007 to 2015, covering heads of government from 10 member states (CZ, DE, FR, GR, IT, NL, PL, PO, SP, UK), EU institutional actors (European Commission, European Parliament, EU Council, ALDE, ECR), and international bodies (ECB, IMF). All non-English speeches were pre-translated.
 
-18,403 speeches from EU leaders collected from 2007 to 2015, covering heads of government from 10 member states (CZ, DE, FR, GR, IT, NL, PL, PO, SP, UK), EU institutional actors (European Commission, European Parliament, EU Council, ALDE, ECR), and international bodies (ECB, IMF). All non-English speeches were pre-translated.
+**Setup:** Download the dataset from the Harvard Dataverse link below and place the translated CSVs in `data/Translated/` before running notebooks.
 
 > Schumacher et al. (2016). _EUSpeech: a New Dataset of EU Elite Speeches._ Proceedings of the International Conference on the Advances in Computational Analysis of Political Text. [dx.doi.org/10.7910/DVN/XPCVEI](https://dx.doi.org/10.7910/DVN/XPCVEI)
 
@@ -21,10 +21,11 @@ Prepares the corpus and measures Jensen-Shannon Divergence (JSD) between nations
 1. Loads the 17 translated CSV files from `data/Translated/` and separates speeches into a national corpus (10 countries) and an institutional corpus (EU bodies, ECB, IMF)
 2. Cleans text (lowercases, strips punctuation, and splits each speech into sentences)
 3. Exports one sentence per line to `output/countries/<NATION>.txt` for use by the SRILM notebook
-4. Tokenizes all speeches and builds per-nation unigram, bigram, and trigram count distributions
-5. Constructs a universal n-gram vocabulary across all nations
-6. Computes pairwise JSD across all nation pairs at each n-gram order, displayed as a heatmap (a score of 0 means identical distributions, 1 means completely disjoint)
-7. Samples a random institutional speech and finds which national corpus it is most similar to by JSD score
+4. Applies a document count minimum of 2,000 sentences per nation, skipping nations with insufficient data to ensure distributions are trained on enough text
+5. Tokenizes all speeches and builds per-nation unigram, bigram, and trigram count distributions
+6. Constructs a universal n-gram vocabulary across all nations
+7. Computes pairwise JSD across all nation pairs at each n-gram order, displayed as a heatmap (a score of 0 means identical distributions, 1 means completely disjoint)
+8. Samples a random institutional speech and finds which national corpus it is most similar to by JSD score
 
 **Why:** JSD on n-gram distributions is a lightweight, interpretable way to measure linguistic similarity between political actors without requiring a trained model
 
@@ -50,7 +51,6 @@ Trains and evaluates n-gram language models on each nation's speeches using SRIL
 ```
 project-group-1/
 ├── data/
-│   ├── Cleaned_Speeches/      # Cleaned CSVs (pre-translation)
 │   └── Translated/            # Translated CSVs (used as input)
 ├── nb/
 │   ├── preprocess.ipynb       # JSD analysis (Parker)
