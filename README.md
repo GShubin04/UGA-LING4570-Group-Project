@@ -2,6 +2,8 @@
 
 Analysis of EU political speech using the EUSpeech dataset.
 
+Note: This project was completed as a final project for the LING 4570 - Natural Language Processing course at the University of Georgia.
+
 ## Dataset
 
 **About:** 18,403 speeches from EU leaders collected from 2007 to 2015, covering heads of government from 10 member states (CZ, DE, FR, GR, IT, NL, PL, PO, SP, UK), EU institutional actors (European Commission, European Parliament, EU Council, ALDE, ECR), and international bodies (ECB, IMF). All non-English speeches were pre-translated.
